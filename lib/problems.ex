@@ -51,19 +51,83 @@ defmodule Problems do
       3
 
       iex> nth([1, 2, 3], 3)
-      nil
+      ** (ArgumentError) nth
 
       iex> nth([], 0)
-      nil
+      ** (ArgumentError) nth
 
   """
   def nth(list, at) do
     nth(list, at, 0)
   end
 
-  defp nth([], _, _), do: nil
   defp nth([hd | _], at, at), do: hd
   defp nth([_ | tl], at, i), do: nth(tl, at, i + 1)
+  defp nth([], _, _), do: raise(ArgumentError, message: "nth")
+
+  @doc """
+  Find the number of elements of a list.
+
+  ## Examples
+
+      iex> len([1, 2, 3])
+      3
+
+      iex> len([])
+      0
+
+  """
+  def len(list), do: len(list, 0)
+
+  defp len([], acc), do: acc
+  defp len([_ | tl], acc), do: len(tl, acc + 1)
+
+  @doc """
+  Reverse a list.
+
+  ## Examples
+
+      iex> reverse([1, 2, 3])
+      [3, 2, 1]
+
+  """
+  def reverse(list), do: reverse(list, [])
+
+  defp reverse([], acc), do: acc
+  defp reverse([hd | tl], acc), do: reverse(tl, [hd | acc])
+
+  @doc """
+  Find out whether a list is a palindrome.
+
+  ## Examples
+
+      iex> is_palindrome(~w[x a m a x])
+      true
+
+      iex> is_palindrome(~w[a b])
+      false
+
+  """
+  def is_palindrome(list) do
+    list == reverse(list)
+  end
+
+  @doc """
+  Flatten a nested list structure.
+
+  ## Examples
+
+      iex> flatten([1, [2, [3, 4], 5]])
+      [1, 2, 3, 4, 5]
+
+  """
+  def flatten(list) do
+    flatten(list, []) |> reverse()
+  end
+
+  defp flatten([], acc), do: acc
+  defp flatten([hd | tl], acc) when is_list(hd), do: flatten(tl, flatten(hd, acc))
+  defp flatten([hd | tl], acc), do: flatten(tl, [hd | acc])
 
   @doc """
   Eliminate consecutive duplicates of list elements.
@@ -77,12 +141,11 @@ defmodule Problems do
       ~w[a b c d e]
 
   """
-  @spec compress([any]) :: [any]
   def compress(list) do
     compress(list, [])
   end
 
-  defp compress([], acc), do: Enum.reverse(acc)
+  defp compress([], acc), do: reverse(acc)
   defp compress([hd | tl], [hd | _] = acc), do: compress(tl, acc)
   defp compress([hd | tl], acc), do: compress(tl, [hd | acc])
 
@@ -98,12 +161,11 @@ defmodule Problems do
       [["a"], ["b", "b"], ["c"], ["d", "d", "d"], ["e"]]
 
   """
-  @spec pack([any]) :: [any]
   def pack([hd | tl]) do
     pack(tl, [hd], [])
   end
 
-  defp pack([], sub, acc), do: Enum.reverse([sub | acc])
+  defp pack([], sub, acc), do: reverse([sub | acc])
   defp pack([hd | tl], [hd | _] = sub, acc), do: pack(tl, [hd | sub], acc)
   defp pack([hd | tl], sub, acc), do: pack(tl, [hd], [sub | acc])
 end
