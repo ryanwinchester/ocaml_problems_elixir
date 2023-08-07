@@ -1,21 +1,7 @@
 # Problems
 
-**TODO: Add description**
+[![CI](https://github.com/ryanwinchester/ocaml_problems_elixir/actions/workflows/ci.yml/badge.svg)](https://github.com/ryanwinchester/ocaml_problems_elixir/actions/workflows/ci.yml)
 
-## Installation
+Solutions to the [99 problems](https://ocaml.org/problems) in Elixir.
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `problems` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:problems, "~> 0.1.0"}
-  ]
-end
-```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/problems>.
-
+Docblocks examples are tested in CI.
