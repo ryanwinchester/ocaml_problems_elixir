@@ -1,7 +1,7 @@
 defmodule Problems do
   @moduledoc """
-  OCaml problems.
-  See: https://ocaml.org/problems
+  OCaml problems. See: https://ocaml.org/problems
+  All the doc examples are tested with doctests.
   """
 
   @doc """
