@@ -9,8 +9,8 @@ defmodule Problems do
 
   ## Examples
 
-      iex> last([1, 2, 3])
-      3
+      iex> last(~w[a b c d])
+      "d"
 
       iex> last([])
       nil
@@ -25,10 +25,10 @@ defmodule Problems do
 
   ## Examples
 
-      iex> last_two([1, 2, 3])
-      {2, 3}
+      iex> last_two(~w[a b c d])
+      {"c", "d"}
 
-      iex> last_two([1])
+      iex> last_two(["a"])
       nil
 
       iex> last_two([])
@@ -44,13 +44,13 @@ defmodule Problems do
 
   ## Examples
 
-      iex> nth([1, 2, 3], 0)
-      1
+      iex> nth(~w[a b c d e], 0)
+      "a"
 
-      iex> nth([1, 2, 3], 2)
-      3
+      iex> nth(~w[a b c d e], 2)
+      "c"
 
-      iex> nth([1, 2, 3], 3)
+      iex> nth(~w[a b c d e], 5)
       ** (ArgumentError) nth
 
       iex> nth([], 0)
@@ -70,7 +70,7 @@ defmodule Problems do
 
   ## Examples
 
-      iex> len([1, 2, 3])
+      iex> len(~w[a b c])
       3
 
       iex> len([])
@@ -87,8 +87,8 @@ defmodule Problems do
 
   ## Examples
 
-      iex> reverse([1, 2, 3])
-      [3, 2, 1]
+      iex> reverse(~w[a b c])
+      ~w[c b a]
 
   """
   def reverse(list), do: reverse(list, [])
@@ -117,8 +117,8 @@ defmodule Problems do
 
   ## Examples
 
-      iex> flatten([1, [2, [3, 4], 5]])
-      [1, 2, 3, 4, 5]
+      iex> flatten(["a", ["b", ["c", "d"], "e"]])
+      ~w[a b c d e]
 
   """
   def flatten(list) do
@@ -133,9 +133,6 @@ defmodule Problems do
   Eliminate consecutive duplicates of list elements.
 
   ## Examples
-
-      iex> compress([1, 2, 2, 3, 4, 4, 4, 5])
-      [1, 2, 3, 4, 5]
 
       iex> compress(~w[a b b c d d d e])
       ~w[a b c d e]
@@ -153,9 +150,6 @@ defmodule Problems do
   Pack consecutive duplicates of list elements into sublists.
 
   ## Examples
-
-      iex> pack([1, 2, 2, 3, 4, 4, 4, 5])
-      [[1], [2, 2], [3], [4, 4, 4], [5]]
 
       iex> pack(~w[a b b c d d d e])
       [["a"], ["b", "b"], ["c"], ["d", "d", "d"], ["e"]]

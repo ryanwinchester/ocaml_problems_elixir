@@ -55,23 +55,23 @@ jobs:
 
       # Check code quality and style.
       - run: mix format --check-formatted
-      # - run: mix credo
+      - run: mix credo
 
       # Run the tests.
       - run: mix test --warnings-as-errors
 
-      # # Static analysis (Dialyzer).
-      # - name: Restore PLT cache
-      #   uses: actions/cache@v3
-      #   id: plt_cache
-      #   with:
-      #     path: priv/plts
-      #     key: plt-${{ matrix.os }}-${{ matrix.elixir }}-${{ matrix.otp }}
-      #     restore-keys: plt-${{ matrix.os }}-${{ matrix.elixir }}-${{ matrix.otp }}
+      # Static analysis (Dialyzer).
+      - name: Restore PLT cache
+        uses: actions/cache@v3
+        id: plt_cache
+        with:
+          path: priv/plts
+          key: plt-${{ matrix.os }}-${{ matrix.elixir }}-${{ matrix.otp }}
+          restore-keys: plt-${{ matrix.os }}-${{ matrix.elixir }}-${{ matrix.otp }}
 
-      # # Create PLTs if no cache was found
-      # - name: Create PLTs
-      #   if: steps.plt_cache.outputs.cache-hit != 'true'
-      #   run: mix dialyzer --plt
-      # - name: Run dialyzer
-      #   run: mix dialyzer --format github
+      # Create PLTs if no cache was found
+      - name: Create PLTs
+        if: steps.plt_cache.outputs.cache-hit != 'true'
+        run: mix dialyzer --plt
+      - name: Run dialyzer
+        run: mix dialyzer --format github
