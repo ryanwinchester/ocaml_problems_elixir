@@ -1,10 +1,16 @@
 defmodule Problems do
   @moduledoc """
   OCaml problems. See: https://ocaml.org/problems
-  All the doc examples are tested with doctests.
+
+  These exercises are inspired by Ninety-Nine Lisp Problems which in turn was
+  based on “Prolog problem list” by Werner Hett.
+
+  All the functions have examples that are tested with doctests.
   """
 
   @doc """
+  Tail of a list.
+
   Returns the last element of a list.
 
   ## Examples
@@ -21,7 +27,9 @@ defmodule Problems do
   def last([_ | tl]), do: last(tl)
 
   @doc """
-  Returns the last two element of a list.
+  Last two elements of a list.
+
+  Find the last but one (last and penultimate) elements of a list.
 
   ## Examples
 
@@ -40,6 +48,8 @@ defmodule Problems do
   def last_two(list) when is_list(list), do: nil
 
   @doc """
+  N'th element of a list.
+
   Find the N'th element of a list.
 
   ## Examples
@@ -51,10 +61,10 @@ defmodule Problems do
       "c"
 
       iex> nth(~w[a b c d e], 5)
-      ** (ArgumentError) nth
+      nil
 
       iex> nth([], 0)
-      ** (ArgumentError) nth
+      nil
 
   """
   def nth(list, at) do
@@ -63,9 +73,11 @@ defmodule Problems do
 
   defp nth([hd | _], at, at), do: hd
   defp nth([_ | tl], at, i), do: nth(tl, at, i + 1)
-  defp nth([], _, _), do: raise(ArgumentError, message: "nth")
+  defp nth([], _, _), do: nil
 
   @doc """
+  Length of a list.
+
   Find the number of elements of a list.
 
   ## Examples
@@ -97,7 +109,9 @@ defmodule Problems do
   defp reverse([hd | tl], acc), do: reverse(tl, [hd | acc])
 
   @doc """
-  Find out whether a list is a palindrome.
+  Palindrome.
+
+  Find out whether a list is a palindrome. A palindrome is its own reverse.
 
   ## Examples
 
@@ -113,6 +127,8 @@ defmodule Problems do
   end
 
   @doc """
+  Flatten a list.
+
   Flatten a nested list structure.
 
   ## Examples
@@ -130,6 +146,8 @@ defmodule Problems do
   defp flatten([hd | tl], acc), do: flatten(tl, [hd | acc])
 
   @doc """
+  Eliminate duplicates.
+
   Eliminate consecutive duplicates of list elements.
 
   ## Examples
@@ -147,6 +165,8 @@ defmodule Problems do
   defp compress([hd | tl], acc), do: compress(tl, [hd | acc])
 
   @doc """
+  Pack consecutive duplicates.
+
   Pack consecutive duplicates of list elements into sublists.
 
   ## Examples
@@ -164,7 +184,7 @@ defmodule Problems do
   defp pack([hd | tl], sub, acc), do: pack(tl, [hd], [sub | acc])
 
   @doc """
-  Run-length encoding of a list.
+  Run-Length Encoding.
 
   ## Examples
 
@@ -180,6 +200,7 @@ defmodule Problems do
 
   @doc """
   Modified run-length encoding.
+
   If an element has no duplicates it is simply copied into the result list.
   Only elements with duplicates are transferred as (N E) lists.
 
@@ -201,6 +222,9 @@ defmodule Problems do
   @doc """
   Decode a run-length encoded list.
 
+  Given a run-length code list generated as specified in the previous problem,
+  construct its uncompressed version.
+
   ## Examples
 
       iex> decode([{4, "a"}, {1, "b"}, {2, "c"}, {2, "a"}, {1, "d"}, {4, "e"}])
@@ -219,6 +243,8 @@ defmodule Problems do
   end
 
   @doc """
+  Run-Length Encoding of a List (Direct Solution).
+
   Don't explicitly create the sublists containing the duplicates, as in problem
   "Pack consecutive duplicates of list elements into sublists", but only count
   them
@@ -319,6 +345,8 @@ defmodule Problems do
   defp split([hd | tl], n, i, acc), do: split(tl, n, i + 1, [hd | acc])
 
   @doc """
+  Extract a slice From a list.
+
   Given two indices, `i` and `k`, the slice is the list containing the elements
   between the i'th and k'th element of the original list (both limits included).
 
