@@ -317,4 +317,51 @@ defmodule Problems do
   defp split([], _, _, acc), do: {reverse(acc), []}
   defp split(list, n, n, acc), do: {reverse(acc), list}
   defp split([hd | tl], n, i, acc), do: split(tl, n, i + 1, [hd | acc])
+
+  @doc """
+  Given two indices, `i` and `k`, the slice is the list containing the elements
+  between the i'th and k'th element of the original list (both limits included).
+
+  ## Examples
+
+      iex> slice(~w[a b c d e f g h i j], 2, 6)
+      ~w[c d e f g]
+
+  """
+  def slice(list, i, k) do
+    slice(list, i, k, 0, [])
+  end
+
+  defp slice(_rest, _from, to, i, acc) when i > to,
+    do: reverse(acc)
+
+  defp slice([hd | tl], from, to, i, acc) when i >= from and i <= to,
+    do: slice(tl, from, to, i + 1, [hd | acc])
+
+  defp slice([_ | tl], from, to, i, acc),
+    do: slice(tl, from, to, i + 1, acc)
+
+  @doc """
+  Rotate a list N places to the left.
+
+  ## Examples
+
+      iex> rotate(~w[a b c d e f g h], 3)
+      ~w[d e f g h a b c]
+
+  ### Notes
+
+  I could have used `split/3` in this function, but I didn't. It would be fun
+  to benchmark the difference in the future.
+  """
+  def rotate(list, by) do
+    rotate(list, by, 0, [], [])
+  end
+
+  defp rotate([], _, _, last, acc), do: reverse(acc) ++ reverse(last)
+
+  defp rotate([hd | tl], by, i, last, acc) when i < by,
+    do: rotate(tl, by, i + 1, [hd | last], acc)
+
+  defp rotate([hd | tl], by, i, last, acc), do: rotate(tl, by, i + 1, last, [hd | acc])
 end
