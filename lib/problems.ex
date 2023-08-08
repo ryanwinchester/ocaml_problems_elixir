@@ -377,19 +377,33 @@ defmodule Problems do
       iex> rotate(~w[a b c d e f g h], 3)
       ~w[d e f g h a b c]
 
-  ### Notes
-
-  I could have used `split/3` in this function, but I didn't. It would be fun
-  to benchmark the difference in the future.
   """
   def rotate(list, by) do
-    rotate(list, by, 0, [], [])
+    {a, b} = split(list, by)
+    b ++ a
   end
 
-  defp rotate([], _, _, last, acc), do: reverse(acc) ++ reverse(last)
+  @doc """
+  Remove the K'th element from a list.
 
-  defp rotate([hd | tl], by, i, last, acc) when i < by,
-    do: rotate(tl, by, i + 1, [hd | last], acc)
+  ## Examples
 
-  defp rotate([hd | tl], by, i, last, acc), do: rotate(tl, by, i + 1, last, [hd | acc])
+      iex> remove_at(~w[a b c d], 1)
+      ~w[a c d]
+
+  """
+  def remove_at([_hd | tl], 0), do: tl
+  def remove_at([hd | tl], at), do: [hd | remove_at(tl, at - 1)]
+
+  @doc """
+  Insert an Element at a Given Position Into a List.
+
+  ## Examples
+
+      iex> insert_at(~w[a b c d], "alfa", 1)
+      ~w[a alfa b c d]
+
+  """
+  def insert_at(list, x, 0), do: [x | list]
+  def insert_at([hd | tl], x, at), do: [hd | insert_at(tl, x, at - 1)]
 end
